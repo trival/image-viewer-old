@@ -25,5 +25,8 @@
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^8.0.1"
+  },
+  "dependencies": {
+    "is-image": "^3.0.0"
   }
 }
