@@ -1,26 +1,51 @@
-# image viewer (image-viewer-quasar)
+# image viewer (image-viewer)
 
-A Quasar Framework app
+A file and directory based photo collection manager, build using electron and
+Quasar Framework.
 
-## Install the dependencies
+## TODOs
+
+- [ ] Add typescript support
+- [ ] Use https://github.com/lovell/sharp and WebP for thumbnail compression
+- [ ] Add preview mode
+- [ ] keyboard navigation
+- [ ] Add open in Finder / App functionality
+- [ ] Add undestructive display and image processing options (turn, transform,
+      ...)
+- [ ] Add multiple library folder managment
+- [ ] hide files or directories from preview
+- [ ] star / tag photos
+- [ ] adjust thumbnail image size
+- [ ] zoom in full view
+- [ ] add fancy animations :)
+- [ ] add video support
+
+## Development
+
+Install the dependencies
+
 ```bash
 yarn
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
+
 ```bash
-quasar dev
+yarn dev
 ```
 
 ### Lint the files
+
 ```bash
-yarn run lint
+yarn lint
 ```
 
 ### Build the app for production
+
 ```bash
-quasar build
+yarn build
 ```
 
 ### Customize the configuration
+
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).

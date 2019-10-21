@@ -1,9 +1,8 @@
 {
-  "name": "image-viewer-quasar",
+  "name": "image-viewer",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
+  "description": "A file and directory based photo collection manager, build using electron and Quasar Framework.",
   "productName": "image-viewer",
-  "cordovaId": "",
   "capacitorId": "",
   "author": "Thomas Gorny <thomas.gorny@pm.me>",
   "private": true,
