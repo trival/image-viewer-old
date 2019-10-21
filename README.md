@@ -10,8 +10,8 @@ Quasar Framework.
 - [ ] Add preview mode
 - [ ] keyboard navigation
 - [ ] Add open in Finder / App functionality
-- [ ] Add undestructive display and image processing options (turn, transform,
-      ...)
+- [ ] Add undestructive display and image processing options (rotate, transform,
+      crop, ...)
 - [ ] Add multiple library folder managment
 - [ ] hide files or directories from preview
 - [ ] star / tag photos
