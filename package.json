@@ -1,32 +1,45 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
+  "name": "image-viewer-quasar",
+  "version": "0.0.1",
+  "description": "A Quasar Framework app",
+  "productName": "image-viewer",
+  "cordovaId": "",
+  "capacitorId": "",
+  "author": "Thomas Gorny <thomas.gorny@pm.me>",
+  "private": true,
   "scripts": {
-    "start": "electron ."
-  },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "@types/jest": "^24.0.19",
-    "electron": "^6.0.12",
-    "jest": "^24.9.0",
-    "prettier": "^1.18.2",
-    "ts-jest": "^24.1.0",
-    "tslint": "^5.20.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-config-standard": "^8.0.1"
+    "dev": "quasar dev -m electron",
+    "build": "quasar build -m electron",
+    "lint": "eslint --ext .js,.vue src",
+    "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "is-image": "^3.0.0"
-  }
+    "@quasar/extras": "^1.0.0",
+    "@vue/composition-api": "^0.3.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "is-image": "^3.0.0",
+    "quasar": "^1.0.0"
+  },
+  "devDependencies": {
+    "@quasar/app": "^1.0.0",
+    "@vue/eslint-config-prettier": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "devtron": "^1.4.0",
+    "electron": "^5.0.0",
+    "electron-debug": "^3.0.0",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-packager": "^13.1.0",
+    "eslint": "^5.10.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^5.0.0",
+    "prettier": "^1.18.2"
+  },
+  "engines": {
+    "node": ">= 10.*",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "last 1 version"
+  ]
 }
