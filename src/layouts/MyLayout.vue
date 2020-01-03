@@ -26,7 +26,7 @@
 			content-class="bg-grey-2"
 		>
 			<q-list>
-				<q-item-label header>Essential Links</q-item-label>
+				<q-item-label header>Directories</q-item-label>
 				<q-item
 					v-for="directory in directories"
 					:key="directory"
@@ -47,7 +47,7 @@
 	</q-layout>
 </template>
 
-<script>
+<script lang="ts">
 import { createComponent, ref } from '@vue/composition-api'
 import { modules } from '../lib'
 

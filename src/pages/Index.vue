@@ -43,7 +43,7 @@
 		height: 100%
 </style>
 
-<script>
+<script lang="ts">
 import { createComponent, ref, watch } from '@vue/composition-api'
 import { modules } from '../lib/index'
 
@@ -55,7 +55,7 @@ export default createComponent({
 			modules.images.setPath(path.value)
 		}
 
-		const onPathChange = e => {
+		const onPathChange = (e: any) => {
 			path.value = e.target.value
 		}
 
@@ -66,9 +66,11 @@ export default createComponent({
 					(entries, imgObserver) => {
 						entries.forEach(entry => {
 							if (entry.isIntersecting) {
-								const lazyImage = entry.target
+								const lazyImage= entry.target as HTMLImageElement 
 								console.log('lazy loading ', lazyImage)
-								lazyImage.src = 'http://localhost:8889/file?name=' + encodeURI(lazyImage.dataset.src)
+								lazyImage.src =
+									'http://localhost:8889/file?name=' +
+									encodeURI(lazyImage.dataset.src as string)
 								lazyImage.classList.remove('lzy_img')
 								imgObserver.unobserve(lazyImage)
 							}

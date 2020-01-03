@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 const { readdir } = require('fs').promises
 import * as path from 'path'
-import * as isImage from 'is-image'
+import isImage from 'is-image'
 const http = require('http')
 const express = require('express')
 const expressApp = express()
@@ -13,6 +13,7 @@ const router = express.Router()
  * The reason we are setting it here is that the path needs to be evaluated at runtime
  */
 if (process.env.PROD) {
+	// @ts-ignore
 	global.__statics = require('path')
 		.join(__dirname, 'statics')
 		.replace(/\\/g, '\\\\')

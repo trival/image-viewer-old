@@ -1,0 +1,8 @@
+{
+  "@quasar/typescript": {
+    "webpack": "vanilla",
+    "rename": true,
+    "vscode": true,
+    "prettier": true
+  }
+}
