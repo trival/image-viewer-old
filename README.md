@@ -5,7 +5,7 @@ Quasar Framework.
 
 ## TODOs
 
-- [ ] Add typescript support
+- [ ] Add persistent state
 - [ ] Use https://github.com/lovell/sharp and WebP for thumbnail compression
 - [ ] Add preview mode
 - [ ] keyboard navigation
@@ -19,6 +19,7 @@ Quasar Framework.
 - [ ] zoom in full view
 - [ ] add fancy animations :)
 - [ ] add video support
+- [x] Add typescript support
 
 ## Development
 
