@@ -1,12 +1,7 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
-const { readdir } = require('fs').promises
-import * as path from 'path'
-import isImage from 'is-image'
-const http = require('http')
-const express = require('express')
-const expressApp = express()
-const cors = require('cors')
-const router = express.Router()
+import { app, BrowserWindow } from 'electron'
+import * as http from 'http'
+import * as express from 'express'
+import * as cors from 'cors'
 
 /**
  * Set `__statics` path to static files in production;
@@ -56,42 +51,15 @@ app.on('activate', () => {
 	}
 })
 
-// listen for files event by browser process
-ipcMain.on('path', async (event, pathName) => {
-	getFiles(pathName)
-		.then(files => mainWindow.webContents.send('images', files))
-		.catch(error => mainWindow.webContents.send('images:error', error))
-})
+// === serve local files ===
 
-async function getFiles(dir) {
-	const dirs = {
-		[dir]: [],
-	}
-	const dirents = await readdir(dir, { withFileTypes: true })
-	await Promise.all(
-		dirents.map(async dirent => {
-			const res = path.resolve(dir, dirent.name)
-			if (dirent.isDirectory()) {
-				const files = await getFiles(res)
-				Object.assign(dirs, files)
-			} else if (isImage(res)) {
-				dirs[dir].push(res)
-			}
-		}),
-	)
-
-	if (!dirs[dir].length) {
-		delete dirs[dir]
-	}
-	return dirs
-}
+const expressApp = express()
+const router = express.Router()
 
 expressApp.use(cors())
 
 router.get('/file', function(req, res) {
-	const file = path.sep + req.query.name
-	console.log('serving file', file)
-	res.sendFile(file)
+	res.sendFile(decodeURIComponent(req.query.name))
 })
 
 expressApp.use('/', router)

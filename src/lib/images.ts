@@ -1,45 +1,38 @@
-import { ref, computed } from '@vue/composition-api';
-import { ipcRenderer } from 'electron';
+import { ref, computed } from '@vue/composition-api'
+import { getImagesInDir } from './files'
 
 export default function create() {
-	const path = ref('');
+	const path = ref('')
 
-	const data = ref<any>({});
+	const data = ref<{ [id: string]: string[] }>({})
 
 	const directories = computed(() =>
 		Object.keys(data.value)
 			.sort()
 			.map(directory => ({
 				directory: directory.replace(path.value, ''),
-				images: data.value[directory].sort()
-			}))
-	);
+				images: data.value[directory].map(encodeURIComponent).sort(),
+			})),
+	)
 
 	const shortDirectories = computed(() =>
-		directories.value.map(d => d.directory)
-	);
+		directories.value.map(d => d.directory),
+	)
 
 	function setPath(newPath: string) {
-		console.log(newPath);
-		ipcRenderer.send('path', newPath);
-		path.value = newPath;
+		console.log(newPath)
+		path.value = newPath
+		getImagesInDir(newPath)
+			.then(images => {
+				data.value = images
+			})
+			.catch(e => console.log(e))
 	}
-
-	// metadata from the main process
-	ipcRenderer.on('images', (event, newData) => {
-		data.value = newData;
-		console.log(data.value);
-	});
-
-	// error event from catch block in main process
-	ipcRenderer.on('images:error', (event, error) => {
-		console.error(error);
-	});
 
 	return {
 		path,
 		directories,
 		shortDirectories,
-		setPath
-	};
+		setPath,
+	}
 }
