@@ -1,7 +1,10 @@
 <template>
-	<q-page class="">
-		<q-input :value="path" @change="onPathChange" label="Path" />
-		<q-btn @click="submitPath" label="Set path" />
+	<div>
+		<label>
+			Path
+			<input :value="path" @change="onPathChange" />
+		</label>
+		<button @click="submitPath">Set path</button>
 		<section
 			v-for="directory in directories"
 			:key="directory.directory"
@@ -16,38 +19,39 @@
 				<img :data-src="image" class="lzy_img" />
 			</div>
 		</section>
-	</q-page>
+	</div>
 </template>
 
-<style scoped lang="sass">
-.directory-section
-	display: flex
-	flex-direction: row
-	flex-wrap: wrap
+<style scoped>
+.directory-section {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.directory-section h3 {
+	width: 100%;
+	padding: 10px;
+}
 
-	h3
-		width: 100%
-		padding: 10px
-
-.image-container
-	position: relative
-	width: 230px
-	height: 230px
-	background-color: #f3f3f3
-	margin: 10px
-
-
-	img
-		object-fit: contain
-		width: 100%
-		height: 100%
+.image-container {
+	position: relative;
+	width: 230px;
+	height: 230px;
+	background-color: #f3f3f3;
+	margin: 10px;
+}
+.image-container img {
+	object-fit: contain;
+	width: 100%;
+	height: 100%;
+}
 </style>
 
 <script lang="ts">
-import { createComponent, ref, watch } from '@vue/composition-api'
 import { modules } from '../lib/index'
+import { defineComponent, ref, watchEffect } from 'vue'
 
-export default createComponent({
+export default defineComponent({
 	setup: () => {
 		const path = ref('')
 
@@ -59,18 +63,17 @@ export default createComponent({
 			path.value = e.target.value
 		}
 
-		watch(() => {
+		watchEffect(() => {
 			console.log('watching: ', modules.images.directories.value)
 			setTimeout(() => {
 				const imageObserver = new IntersectionObserver(
 					(entries, imgObserver) => {
-						entries.forEach(entry => {
+						entries.forEach((entry) => {
 							if (entry.isIntersecting) {
-								const lazyImage= entry.target as HTMLImageElement 
+								const lazyImage = entry.target as HTMLImageElement
 								console.log('lazy loading ', lazyImage)
 								lazyImage.src =
-									'http://localhost:8889/file?name=' +
-									encodeURI(lazyImage.dataset.src as string)
+									'local-resource://' + (lazyImage.dataset.src as string)
 								lazyImage.classList.remove('lzy_img')
 								imgObserver.unobserve(lazyImage)
 							}
@@ -78,7 +81,7 @@ export default createComponent({
 					},
 				)
 				const arr = document.querySelectorAll('img.lzy_img')
-				arr.forEach(v => {
+				arr.forEach((v) => {
 					imageObserver.observe(v)
 				})
 			}, 1000)

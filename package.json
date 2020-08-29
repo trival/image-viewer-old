@@ -1,55 +1,66 @@
 {
-  "name": "image-viewer",
-  "version": "0.0.1",
-  "description": "A file and directory based photo collection manager, build using electron and Quasar Framework.",
-  "productName": "image-viewer",
-  "capacitorId": "",
-  "author": "Thomas Gorny <thomas.gorny@pm.me>",
+  "name": "image-viewer2",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "quasar dev -m electron",
-    "build": "quasar build -m electron",
-    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore ./",
-    "test": "echo \"No test specified\" && exit 0"
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:dev": "vue-cli-service electron:serve",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps",
+    "test:types": "tsc --noEmit"
   },
+  "main": "background.js",
   "dependencies": {
-    "@quasar/extras": "^1.3.3",
-    "@vue/composition-api": "^0.3.4",
-    "cors": "^2.8.5",
-    "del": "^5.1.0",
-    "express": "^4.17.1",
     "is-image": "^3.0.0",
-    "mkdirp": "^0.5.1",
-    "quasar": "^1.5.11",
-    "sharp": "^0.23.4"
+    "vue": "^3.0.0-0"
   },
   "devDependencies": {
-    "@quasar/app": "^1.4.3",
-    "@quasar/quasar-app-extension-typescript": "^1.0.0-beta.2",
-    "@types/node": "12.*",
-    "@types/sharp": "^0.23.1",
-    "@typescript-eslint/eslint-plugin": "^1.12.0",
-    "@typescript-eslint/parser": "^1.12.0",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "@vue/cli": "^4.5.4",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0-0",
     "@vue/eslint-config-prettier": "^6.0.0",
-    "babel-eslint": "^10.0.1",
-    "devtron": "^1.4.0",
-    "electron": "^7.1.7",
-    "electron-debug": "^3.0.0",
-    "electron-devtools-installer": "^2.2.4",
-    "electron-packager": "^14.1.1",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-loader": "^3.0.3",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-vue": "^6.1.2",
-    "prettier": "^1.19.1",
-    "typescript": "^3.7.4"
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "electron": "^10.0.0",
+    "electron-devtools-installer": "^3.1.0",
+    "eslint": "^7.7.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-vue": "^7.0.0-0",
+    "prettier": "^2.1.0",
+    "typescript": "~4.0.2",
+    "vue-cli-plugin-electron-builder": "~2.0.0-rc.4"
   },
-  "engines": {
-    "node": ">= 12.*",
-    "yarn": ">= 1.6.0"
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended",
+      "@vue/typescript/recommended",
+      "@vue/prettier",
+      "@vue/prettier/@typescript-eslint"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2020
+    },
+    "rules": {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-empty-function": "off",
+      "@typescript-eslint/no-unused-vars": "off"
+    }
   },
   "browserslist": [
-    "last 1 version"
+    "> 1%",
+    "last 2 versions",
+    "not dead"
   ]
 }

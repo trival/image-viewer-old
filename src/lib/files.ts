@@ -8,7 +8,7 @@ export async function getImagesInDir(dir: string) {
 	}
 	const dirents = await fs.promises.readdir(dir, { withFileTypes: true })
 	await Promise.all(
-		dirents.map(async dirent => {
+		dirents.map(async (dirent) => {
 			const res = path.resolve(dir, dirent.name)
 			if (dirent.isDirectory()) {
 				const files = await getImagesInDir(res)

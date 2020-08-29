@@ -1,7 +1,4 @@
-# image viewer (image-viewer)
-
-A file and directory based photo collection manager, build using electron and
-Quasar Framework.
+# image-viewer2
 
 ## TODOs
 
@@ -21,32 +18,30 @@ Quasar Framework.
 - [ ] add video support
 - [x] Add typescript support
 
-## Development
+## Project setup
 
-Install the dependencies
-
-```bash
-yarn
+```
+yarn install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Compiles and hot-reloads for development
 
-```bash
+```
 yarn dev
 ```
 
-### Lint the files
+### Compiles and minifies for production
 
-```bash
-yarn lint
 ```
-
-### Build the app for production
-
-```bash
 yarn build
 ```
 
-### Customize the configuration
+### Lints and fixes files
 
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
+```
+yarn lint
+```
+
+### Customize configuration
+
+See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -1,5 +1,5 @@
-import { ref, computed } from '@vue/composition-api'
 import { getImagesInDir } from './files'
+import { ref, computed } from 'vue'
 
 export default function create() {
 	const path = ref('')
@@ -9,24 +9,24 @@ export default function create() {
 	const directories = computed(() =>
 		Object.keys(data.value)
 			.sort()
-			.map(directory => ({
+			.map((directory) => ({
 				directory: directory.replace(path.value, ''),
-				images: data.value[directory].map(encodeURIComponent).sort(),
+				images: data.value[directory].map(encodeURI).sort(),
 			})),
 	)
 
 	const shortDirectories = computed(() =>
-		directories.value.map(d => d.directory),
+		directories.value.map((d) => d.directory),
 	)
 
 	function setPath(newPath: string) {
 		console.log(newPath)
 		path.value = newPath
 		getImagesInDir(newPath)
-			.then(images => {
+			.then((images) => {
 				data.value = images
 			})
-			.catch(e => console.log(e))
+			.catch((e) => console.log(e))
 	}
 
 	return {
