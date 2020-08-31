@@ -1,8 +1,8 @@
-# image-viewer2
+# image-viewer
 
 ## TODOs
 
-- [ ] Add persistent state
+- [ ] Add persistent state (Maybe with sqlite3 https://github.com/mapbox/node-sqlite3 + typeorm)
 - [ ] Use https://github.com/lovell/sharp and WebP for thumbnail compression
 - [ ] Add preview mode
 - [ ] keyboard navigation
@@ -15,7 +15,7 @@
 - [ ] adjust thumbnail image size
 - [ ] zoom in full view
 - [ ] add fancy animations :)
-- [ ] add video support
+- [ ] add video support (for thumbnails: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg/blob/master/examples/thumbnails.js)
 - [x] Add typescript support
 
 ## Project setup

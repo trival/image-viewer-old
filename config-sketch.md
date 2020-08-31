@@ -1,8 +1,27 @@
-# possible config layout
+# Data model
 
 # library
 
-- library root path
-- library id
+- id
+- name
+- root path
+- ignore paths / globs
 
-- thumbnails in subfolders under id folder in general config path
+# media metadata
+
+- id
+- type
+- libraryId
+- filename
+- subpath
+- filesize
+- created at / updated at
+- photo date
+- albums (AlbumIds[])
+
+# Album
+
+- id
+- name
+- color
+- medias (libId / mediaId)[]
