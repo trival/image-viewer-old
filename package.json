@@ -2,6 +2,12 @@
   "name": "image-viewer",
   "version": "0.1.0",
   "private": true,
+  "author": "Thomas Gorny",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trival/image-viewer.git"
+  },
   "scripts": {
     "dev": "vue-cli-service electron:serve",
     "build": "vue-cli-service electron:build",
@@ -57,7 +63,7 @@
     }
   },
   "browserslist": [
-    "> 1%",
+    "> 5%",
     "last 2 versions",
     "not dead"
   ]

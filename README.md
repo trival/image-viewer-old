@@ -2,7 +2,8 @@
 
 ## TODOs
 
-- [ ] Add persistent state (Maybe with sqlite3 https://github.com/mapbox/node-sqlite3 + typeorm)
+- [ ] Add persistent state (Maybe with sqlite3
+      https://github.com/mapbox/node-sqlite3 + typeorm)
 - [ ] Use https://github.com/lovell/sharp and WebP for thumbnail compression
 - [ ] Add preview mode
 - [ ] keyboard navigation
@@ -15,7 +16,8 @@
 - [ ] adjust thumbnail image size
 - [ ] zoom in full view
 - [ ] add fancy animations :)
-- [ ] add video support (for thumbnails: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg/blob/master/examples/thumbnails.js)
+- [ ] add video support (for thumbnails:
+      https://github.com/fluent-ffmpeg/node-fluent-ffmpeg/blob/master/examples/thumbnails.js)
 - [x] Add typescript support
 
 ## Project setup
@@ -45,3 +47,14 @@ yarn lint
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Contributing
+
+Your contributions and suggestions are greatly appreciated. Submit your issues
+and PRs on [github](https://github.com/trival/image-viewer). Please add unit
+tests for any new or changed functionality. Format, lint and test your code with
+the provided configurations.
+
+## License
+
+Distributed under the MIT License. See LICENSE for more information.
