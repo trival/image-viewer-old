@@ -1,6 +1,6 @@
 import { ID } from '@/backend/types'
 
-export type IEntity = Readonly<{
+export type IAlbumEntity = Readonly<{
 	id: ID
 	name: string
 	color: string
