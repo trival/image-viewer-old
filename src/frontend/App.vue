@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { modules } from './lib'
+import { modules } from '../lib'
 import { defineComponent, ref } from 'vue'
 import ImageList from './components/ImageList.vue'
 
