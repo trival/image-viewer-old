@@ -7,6 +7,7 @@ export interface IMediaApi {
 	getMediaOfAlbum(albumId: ID): Promise<IMediaEntity[]>
 
 	// Commands
+	refreshMedia(id: ID): Promise<IMediaEntity>
 	refreshMediaOfLibrary(libraryId: ID): Promise<IMediaEntity[]>
 	addMediaToAlbum(id: ID, albumID: ID): Promise<IMediaEntity>
 	removeMediaFromAlbum(id: ID, albumID: ID): Promise<IMediaEntity>

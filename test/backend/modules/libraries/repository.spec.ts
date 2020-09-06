@@ -3,7 +3,7 @@ import { testConnection } from 'test/db/fixtures'
 import { createLibraryDBRepository } from '@/backend/modules/libraries/repository'
 import { ILibraryEntity } from '@/backend/modules/libraries/entities/library'
 
-describe('backend/modules/librarys/repository', () => {
+describe('backend/modules/libraries/repository', () => {
 	let conn: Connection
 	beforeEach(async () => {
 		conn = await testConnection()
@@ -12,7 +12,7 @@ describe('backend/modules/librarys/repository', () => {
 		await conn.close()
 	})
 
-	it('crud librarys', async () => {
+	it('crud libraries', async () => {
 		const repo = createLibraryDBRepository(conn)
 
 		const library: ILibraryEntity = {
@@ -24,22 +24,22 @@ describe('backend/modules/librarys/repository', () => {
 
 		const newName = { name: 'test2' }
 
-		let librarys = await repo.getLibraries()
-		expect(librarys).toEqual([])
+		let libraries = await repo.getLibraries()
+		expect(libraries).toEqual([])
 
 		await repo.saveLibrary(library)
 
-		librarys = await repo.getLibraries()
-		expect(librarys).toEqual([library])
+		libraries = await repo.getLibraries()
+		expect(libraries).toEqual([library])
 
 		await repo.saveLibrary({ ...library, ...newName })
 
-		librarys = await repo.getLibraries()
-		expect(librarys).toEqual([{ ...library, ...newName }])
+		libraries = await repo.getLibraries()
+		expect(libraries).toEqual([{ ...library, ...newName }])
 
 		await repo.deleteLibrary(library.id)
 
-		librarys = await repo.getLibraries()
-		expect(librarys).toEqual([])
+		libraries = await repo.getLibraries()
+		expect(libraries).toEqual([])
 	})
 })

@@ -1,6 +1,6 @@
 export type IFileMeta = Readonly<{
+	filename: string
 	size: number
-	name: number
 	createdAt: number
 	updatedAt: number
 }>
