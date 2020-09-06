@@ -1,9 +1,17 @@
 import { testConnection } from './fixtures'
 import { Library } from '@/backend/db/entities/library'
+import { Connection } from 'typeorm'
 
 describe('backend/db/connection', () => {
+	let conn: Connection
+	beforeEach(async () => {
+		conn = await testConnection()
+	})
+	afterEach(async () => {
+		await conn.close()
+	})
+
 	it('works', async () => {
-		const conn = await testConnection()
 		const repo = conn.getRepository(Library)
 		const lib = new Library()
 		lib.name = 'test'

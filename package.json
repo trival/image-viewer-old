@@ -15,8 +15,8 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
     "test:types": "tsc --noEmit",
-    "test:watch": "jest --watch",
-    "test": "jest "
+    "test:watch": "yarn test --watch",
+    "test": "jest --runInBand"
   },
   "main": "background.js",
   "dependencies": {

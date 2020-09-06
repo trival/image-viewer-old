@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryColumn } from 'typeorm'
 import { ID } from '@/backend/types'
 
 @Entity()
-export class Library {
+export class Album {
 	@PrimaryColumn({ type: 'text' })
 	id!: ID
 
@@ -10,8 +10,5 @@ export class Library {
 	name!: string
 
 	@Column({ type: 'text', nullable: true })
-	rootPath!: string
-
-	@Column({ type: 'text', nullable: true })
-	ignorePaths!: string
+	color!: string
 }
