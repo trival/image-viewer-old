@@ -1,6 +1,8 @@
 import { createConnection } from 'typeorm'
 import { Library } from './entities/library'
 import { Album } from './entities/album'
+import { AlbumMedia } from './entities/albumMedia'
+import { Media } from './entities/media'
 
 export function getDBConnection(
 	dbLocation: string,
@@ -13,6 +15,6 @@ export function getDBConnection(
 		synchronize: isTest,
 		dropSchema: isTest,
 		migrationsRun: !isTest,
-		entities: [Library, Album],
+		entities: [Library, Album, Media, AlbumMedia],
 	})
 }

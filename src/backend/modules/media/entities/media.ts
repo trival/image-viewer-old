@@ -13,8 +13,8 @@ export type IMediaEntity = Readonly<{
 	type: EMediaType
 	directory: string
 	fullPath: string
-	thumbPath: string
-	albums: ID[]
+	thumbPath?: string
+	albums?: ID[]
 	fileMeta?: IFileMeta
 	mediaMeta?: IImageMeta | IVideoMeta
 }>
