@@ -6,7 +6,10 @@ export interface ILibraryApi {
 	getLibraries(): Promise<ILibraryEntity[]>
 
 	// Commands
-	createLibrary(props: { name?: string; path: string }): Promise<ILibraryEntity>
+	createLibrary(props: {
+		name?: string
+		rootPath: string
+	}): Promise<ILibraryEntity>
 	updateLibrary(
 		id: ID,
 		props: Partial<{ name: string; rootPath: string; ignorePaths: string[] }>,

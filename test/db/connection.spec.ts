@@ -1,5 +1,5 @@
-import { testConnection } from './fixtures'
 import { Library } from '@/backend/db/entities/library'
+import { testConnection } from 'test/fixtures/basic'
 import { Connection } from 'typeorm'
 
 describe('backend/db/connection', () => {

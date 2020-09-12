@@ -1,5 +1,4 @@
 import { Connection } from 'typeorm'
-import { testConnection } from 'test/db/fixtures'
 import { createMediaDBRepository } from '@/backend/modules/media/repository'
 import {
 	IMediaEntity,
@@ -12,6 +11,7 @@ import {
 } from '@/backend/modules/libraries/repository'
 import { ILibraryEntity } from '@/backend/modules/libraries/entities/library'
 import { createAlbumDBRepository } from '@/backend/modules/albums/repository'
+import { testConnection } from 'test/fixtures/basic'
 
 const libId = 'lib_id'
 const libRootPath = '/home'

@@ -1,7 +1,7 @@
 import { Connection } from 'typeorm'
-import { testConnection } from 'test/db/fixtures'
 import { createLibraryDBRepository } from '@/backend/modules/libraries/repository'
 import { ILibraryEntity } from '@/backend/modules/libraries/entities/library'
+import { testConnection } from 'test/fixtures/basic'
 
 describe('backend/modules/libraries/repository', () => {
 	let conn: Connection
