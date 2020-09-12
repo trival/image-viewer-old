@@ -4,12 +4,14 @@ import { createMediaDBRepository } from '@/backend/modules/media/repository'
 import {
 	IMediaEntity,
 	EMediaType,
+	mediaDefaultValues,
 } from '@/backend/modules/media/entities/media'
 import {
 	createLibraryDBRepository,
 	ILibraryRepository,
 } from '@/backend/modules/libraries/repository'
 import { ILibraryEntity } from '@/backend/modules/libraries/entities/library'
+import { createAlbumDBRepository } from '@/backend/modules/albums/repository'
 
 const libId = 'lib_id'
 const libRootPath = '/home'
@@ -38,6 +40,7 @@ function createTestMedia(
 	const fullPath =
 		defaultFullPath ?? createFullPath(filename, directory, libRootPath)
 	return {
+		...mediaDefaultValues,
 		id,
 		type,
 		directory,
@@ -92,5 +95,47 @@ describe('backend/modules/media/repository', () => {
 
 		items = await repo.getMediaOfLibrary(libId)
 		expect(items).toEqual([])
+	})
+
+	it('handles albums', async () => {
+		const repo = createMediaDBRepository(conn)
+		const albumRepo = createAlbumDBRepository(conn)
+		const albumId1 = 'foo'
+		const albumId2 = 'bar'
+		await albumRepo.saveAlbum({ id: albumId1, name: 'Foo', color: '' })
+		await albumRepo.saveAlbum({ id: albumId2, name: 'Bar', color: '' })
+
+		const m1 = createTestMedia('media1')
+		const m2 = createTestMedia('media2', { filename: 'img2.png' })
+		await repo.saveMedia([m1, m2])
+
+		const m1_1 = await repo.getMediaById(m1.id)
+		expect(m1_1.albums).toEqual([])
+
+		const [m1_2] = await repo.addMediaToAlbum([m1.id], albumId1)
+		const [m1_3, m2_1] = await repo.addMediaToAlbum([m1.id, m2.id], albumId2)
+
+		expect(m1_2.albums).toEqual([albumId1])
+		expect(m1_3.albums).toEqual([albumId1, albumId2])
+		expect(m2_1.albums).toEqual([albumId2])
+
+		const m1_4 = await repo.getMediaById(m1.id)
+		expect(m1_4.albums).toEqual([albumId1, albumId2])
+
+		const [m1_5, m2_2] = await repo.getMediaOfLibrary(libId)
+		expect(m1_5.albums).toEqual([albumId2, albumId1])
+		expect(m2_2.albums).toEqual([albumId2])
+
+		const [m1_6, m2_3] = await repo.getMediaOfAlbum(albumId2)
+		expect(m1_6.id).toEqual(m1.id)
+		expect(m2_3.id).toEqual(m2.id)
+		expect(m1_6.albums).toEqual([albumId1, albumId2])
+		expect(m2_3.albums).toEqual([albumId2])
+
+		const [m1_7] = await repo.removeMediaFromAlbum([m1.id], albumId2)
+		expect(m1_7.albums).toEqual([albumId1])
+
+		const m1_8 = await repo.getMediaById(m1.id)
+		expect(m1_8.albums).toEqual([albumId1])
 	})
 })

@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryColumn } from 'typeorm'
 import { ID } from '@/backend/types'
+import { Maybe } from '@/lib/types'
 
 @Entity()
 export class Album {
@@ -10,5 +11,5 @@ export class Album {
 	name!: string
 
 	@Column({ type: 'text', nullable: true })
-	color!: string
+	color: Maybe<string>
 }

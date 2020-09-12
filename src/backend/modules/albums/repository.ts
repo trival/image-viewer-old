@@ -16,7 +16,13 @@ export function createAlbumDBRepository(conn: Connection): IAlbumRepository {
 	const db = conn.getRepository(Album)
 	const repo = {} as IAlbumRepository
 
-	repo.getAlbums = () => db.find()
+	repo.getAlbums = () =>
+		db.find().then((vals) =>
+			vals.map((v) => ({
+				...v,
+				color: v.color ?? undefined,
+			})),
+		)
 
 	repo.saveAlbum = (album) => db.save(album)
 

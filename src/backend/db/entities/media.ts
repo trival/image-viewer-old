@@ -35,7 +35,7 @@ export class Media {
 	@Column({ type: 'text', nullable: true })
 	thumbPath: Maybe<string>
 
-	@OneToMany(() => AlbumMedia, (a) => a.album)
+	@OneToMany(() => AlbumMedia, (a) => a.media)
 	albums!: AlbumMedia[]
 
 	// file meta data

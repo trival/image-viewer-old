@@ -34,7 +34,7 @@ export function mediaDbToEntity(m: Media): IMediaEntity {
 		directory: m.directory,
 		fullPath: m.fullPath,
 		thumbPath: m.thumbPath,
-		albums: [],
+		albums: m.albums ? m.albums.map((a) => a.albumId) : [],
 		fileMeta:
 			m.fileCreatedAt || m.fileName || m.fileSize || m.fileUpdatedAt
 				? {

@@ -14,7 +14,12 @@ export type IMediaEntity = Readonly<{
 	directory: string
 	fullPath: string
 	thumbPath?: string
-	albums?: ID[]
+	albums: Readonly<ID[]>
 	fileMeta?: IFileMeta
 	mediaMeta?: IMediaMeta
 }>
+
+export const mediaDefaultValues = {
+	type: EMediaType.IMAGE,
+	albums: [],
+} as const
