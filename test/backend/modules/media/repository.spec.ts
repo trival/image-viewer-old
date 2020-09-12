@@ -75,17 +75,18 @@ describe('backend/modules/media/repository', () => {
 		let items = await repo.getMediaOfLibrary(libId)
 		expect(items).toEqual([])
 
-		await repo.saveMedia([media1, media2])
+		const saved = await repo.saveMedia([media1, media2])
+		expect(saved).toMatchObject([media1, media2])
 
 		items = await repo.getMediaOfLibrary(libId)
-		expect(items).toEqual([media1, media2])
+		expect(items).toMatchObject([media1, media2])
 
 		const newThumb = { thumbPath: '/thumbs/thumb1.png' }
 
 		await repo.saveMedia([{ ...media1, ...newThumb }])
 
 		items = await repo.getMediaOfLibrary(libId)
-		expect(items).toEqual([{ ...items, ...newThumb }, media2])
+		expect(items).toMatchObject([{ ...media1, ...newThumb }, media2])
 
 		await repo.deleteMedia([media1.id, media2.id])
 

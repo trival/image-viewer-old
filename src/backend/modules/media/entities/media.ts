@@ -1,6 +1,6 @@
 import { ID } from '@/backend/types'
 import { IFileMeta } from './fileMeta'
-import { IImageMeta, IVideoMeta } from './mediaMeta'
+import { IMediaMeta } from './mediaMeta'
 
 export enum EMediaType {
 	IMAGE = 'IMAGE',
@@ -16,5 +16,5 @@ export type IMediaEntity = Readonly<{
 	thumbPath?: string
 	albums?: ID[]
 	fileMeta?: IFileMeta
-	mediaMeta?: IImageMeta | IVideoMeta
+	mediaMeta?: IMediaMeta
 }>

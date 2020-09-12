@@ -9,6 +9,7 @@ import {
 import { ID } from '@/backend/types'
 import { Library } from './library'
 import { AlbumMedia } from './albumMedia'
+import { Maybe } from '@/lib/types'
 
 @Entity()
 export class Media {
@@ -32,7 +33,7 @@ export class Media {
 	fullPath!: string
 
 	@Column({ type: 'text', nullable: true })
-	thumbPath!: string
+	thumbPath: Maybe<string>
 
 	@OneToMany(() => AlbumMedia, (a) => a.album)
 	albums!: AlbumMedia[]
@@ -40,28 +41,28 @@ export class Media {
 	// file meta data
 
 	@Column({ type: 'text', nullable: true })
-	fileName!: string
+	fileName: Maybe<string>
 
 	@Column({ type: 'int', nullable: true })
-	fileSize!: number
+	fileSize: Maybe<number>
 
 	@Column({ type: 'int', nullable: true })
-	fileCreatedAt!: number
+	fileCreatedAt: Maybe<number>
 
 	@Column({ type: 'int', nullable: true })
-	fileUpdatedAt!: number
+	fileUpdatedAt: Maybe<number>
 
 	// media meta data
 
 	@Column({ type: 'int', nullable: true })
-	metaDate!: number
+	metaDate: Maybe<number>
 
 	@Column({ type: 'int', nullable: true })
-	metaWidth!: number
+	metaWidth: Maybe<number>
 
 	@Column({ type: 'int', nullable: true })
-	metaHeight!: number
+	metaHeight: Maybe<number>
 
 	@Column({ type: 'int', nullable: true })
-	metaLength!: number
+	metaLength: Maybe<number>
 }

@@ -1,10 +1,6 @@
-export type IImageMeta = Readonly<{
+export type IMediaMeta = Readonly<{
 	width: number
 	height: number
 	date: number
+	length: number
 }>
-
-export type IVideoMeta = IImageMeta &
-	Readonly<{
-		length: number
-	}>

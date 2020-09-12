@@ -1,7 +1,7 @@
 import { ILibraryEntity } from './entities/library'
 import { Library } from '@/backend/db/entities/library'
 
-export function entityToDb(entity: ILibraryEntity): Library {
+export function libraryEntityToDb(entity: ILibraryEntity): Library {
 	const library = new Library()
 
 	library.id = entity.id
@@ -12,7 +12,7 @@ export function entityToDb(entity: ILibraryEntity): Library {
 	return library
 }
 
-export function dbToEntity(library: Library): ILibraryEntity {
+export function libraryDbToEntity(library: Library): ILibraryEntity {
 	return {
 		id: library.id,
 		name: library.name,
