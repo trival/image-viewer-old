@@ -17,3 +17,5 @@
 - [ ] add video support (for thumbnails:
       https://github.com/fluent-ffmpeg/node-fluent-ffmpeg/blob/master/examples/thumbnails.js)
 - [x] Add typescript support
+- [ ] Use https://sharp.pixelplumbing.com/ for image processing and metadata
+      reading

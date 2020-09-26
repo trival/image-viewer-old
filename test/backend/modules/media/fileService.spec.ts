@@ -11,6 +11,7 @@ import { localTestRootPath } from 'test/fixtures/basic'
 
 describe('backend/modules/media/fileService', () => {
 	const service: IFileService = createFileService()
+
 	describe('getMediaDataForPath', () => {
 		it('gets media data for file', async () => {
 			const m = await service.getMediaDataForPath(
@@ -43,6 +44,22 @@ describe('backend/modules/media/fileService', () => {
 			}
 		`,
 			)
+		})
+
+		it('gets the image meta', async () => {
+			const m = await service.getMediaDataForPath(
+				localTestRootPath,
+				'dir1/test_image_square.jpg',
+				{ withMediaMeta: true },
+			)
+			expect(m).toMatchObject({
+				mediaMeta: {
+					date: 0,
+					width: 200,
+					height: 200,
+					length: 0,
+				},
+			} as Partial<IMediaEntity>)
 		})
 	})
 })

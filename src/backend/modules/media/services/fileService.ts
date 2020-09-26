@@ -5,6 +5,7 @@ import * as fs from 'fs'
 import * as crypto from 'crypto'
 import isImage from 'is-image'
 import { IFileMeta } from '../entities/fileMeta'
+import sharp from 'sharp'
 
 export interface IFileService {
 	getMediaDataForRootPath(rootPath: string): Promise<IMediaEntity[]>
@@ -44,13 +45,27 @@ export function createFileService(): IFileService {
 			updatedAt: stats.mtimeMs,
 		}
 
-		const m = {
+		let m = {
 			id: getPathHash(fullPath, fileMeta.createdAt, fileMeta.size),
 			type,
 			fullPath,
 			directory: getDirectory(fullPath, rootPath),
 			fileMeta,
 		} as IMediaEntity
+
+		if (opts?.withMediaMeta) {
+			const meta = await sharp(fullPath).metadata()
+			console.log(meta)
+			m = {
+				...m,
+				mediaMeta: {
+					date: 0,
+					width: meta.width || 0,
+					height: meta.height || 0,
+					length: 0,
+				},
+			}
+		}
 
 		return m
 	}
