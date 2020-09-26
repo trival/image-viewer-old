@@ -6,6 +6,7 @@ import * as crypto from 'crypto'
 import isImage from 'is-image'
 import { IFileMeta } from '../entities/fileMeta'
 import sharp from 'sharp'
+import { exiftool } from 'exiftool-vendored'
 
 export interface IFileService {
 	getMediaDataForRootPath(rootPath: string): Promise<IMediaEntity[]>
@@ -55,7 +56,8 @@ export function createFileService(): IFileService {
 
 		if (opts?.withMediaMeta) {
 			const meta = await sharp(fullPath).metadata()
-			console.log(meta)
+			const exif = await exiftool.read(fullPath)
+			console.log(meta, exif)
 			m = {
 				...m,
 				mediaMeta: {

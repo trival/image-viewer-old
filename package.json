@@ -21,6 +21,7 @@
   "main": "background.js",
   "dependencies": {
     "better-sqlite3": "^7.1.0",
+    "exiftool-vendored": "^12.2.0",
     "is-image": "^3.0.0",
     "sharp": "^0.26.1",
     "sqlite3": "^5.0.0",
