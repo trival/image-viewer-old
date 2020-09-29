@@ -6,7 +6,7 @@ import * as crypto from 'crypto'
 import isImage from 'is-image'
 import { IFileMeta } from '../entities/fileMeta'
 import sharp from 'sharp'
-import { exiftool } from 'exiftool-vendored'
+import { ExifDateTime, exiftool } from 'exiftool-vendored'
 
 export interface IFileService {
 	getMediaDataForRootPath(rootPath: string): Promise<IMediaEntity[]>
@@ -55,17 +55,29 @@ export function createFileService(): IFileService {
 		} as IMediaEntity
 
 		if (opts?.withMediaMeta) {
-			const meta = await sharp(fullPath).metadata()
-			const exif = await exiftool.read(fullPath)
-			console.log(meta, exif)
-			m = {
-				...m,
-				mediaMeta: {
-					date: 0,
-					width: meta.width || 0,
-					height: meta.height || 0,
-					length: 0,
-				},
+			if (m.type === EMediaType.IMAGE) {
+				const meta = await sharp(fullPath).metadata()
+				const exif = await exiftool.read(fullPath).catch((e) => {
+					console.log('error reading exif data of ' + fullPath, e)
+					return null
+				})
+				const maybeDate =
+					exif && (exif.CreateDate || exif.DateCreated || exif.DateTimeCreated)
+				const date = maybeDate
+					? typeof maybeDate === 'string'
+						? ExifDateTime.fromExifLoose(maybeDate)?.toDate().getTime()
+						: maybeDate.toDate().getTime()
+					: 0
+				// console.log(meta, exif)
+				m = {
+					...m,
+					mediaMeta: {
+						date: date || 0,
+						width: meta.width || 0,
+						height: meta.height || 0,
+						length: 0,
+					},
+				}
 			}
 		}
 

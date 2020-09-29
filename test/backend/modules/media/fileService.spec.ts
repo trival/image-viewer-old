@@ -28,22 +28,36 @@ describe('backend/modules/media/fileService', () => {
 			} as IMediaEntity)
 
 			expect(m).toMatchInlineSnapshot(
-				{ fullPath: expect.any(String) },
+				{
+					fullPath: expect.any(String),
+					id: expect.any(String),
+					fileMeta: {
+						createdAt: expect.any(Number),
+						updatedAt: expect.any(Number),
+					},
+				},
 				`
 			Object {
 			  "directory": "dir1",
 			  "fileMeta": Object {
-			    "createdAt": 1595415312636.625,
+			    "createdAt": Any<Number>,
 			    "filename": "test_image_square.png",
 			    "size": 56816,
-			    "updatedAt": 1595415312637.6023,
+			    "updatedAt": Any<Number>,
 			  },
 			  "fullPath": Any<String>,
-			  "id": "b389b5d02e52c07a8780e501205404cac1407055",
+			  "id": Any<String>,
 			  "type": "IMAGE",
 			}
 		`,
 			)
+
+			const m2 = await service.getMediaDataForPath(
+				localTestRootPath,
+				'dir1/test_image_square.png ',
+			)
+
+			expect(m2.id).toEqual(m.id)
 		})
 
 		it('gets the image meta', async () => {
@@ -54,7 +68,7 @@ describe('backend/modules/media/fileService', () => {
 			)
 			expect(m).toMatchObject({
 				mediaMeta: {
-					date: 0,
+					date: 1510930096000,
 					width: 3024,
 					height: 4032,
 					length: 0,
