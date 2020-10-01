@@ -48,7 +48,7 @@
 </style>
 
 <script lang="ts">
-import { modules } from '../lib/index'
+import { modules } from '../../lib/index'
 import { defineComponent, ref, watchEffect } from 'vue'
 
 export default defineComponent({
