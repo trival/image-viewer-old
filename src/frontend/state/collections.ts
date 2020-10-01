@@ -1,40 +1,54 @@
 import { IAlbumApi } from '@/backend/modules/albums/api'
+import { IAlbumEntity } from '@/backend/modules/albums/entities/album'
 import { ILibraryApi } from '@/backend/modules/libraries/api'
+import { ILibraryEntity } from '@/backend/modules/libraries/entities/library'
+import { ID } from '@/backend/types'
 import { ref, computed } from 'vue'
 
+export type ICollectionState = ReturnType<typeof create>
 export default function create(libApi: ILibraryApi, albumApi: IAlbumApi) {
-	const libraries = ref([])
-	const albums = ref([])
+	const libraries = ref<ILibraryEntity[]>([])
+	const albums = ref<IAlbumEntity[]>([])
 
-	const data = ref<{ [id: string]: string[] }>({})
+	const currentCollection = ref<string | null>(null)
 
-	const directories = computed(() =>
-		Object.keys(data.value)
-			.sort()
-			.map((directory) => ({
-				directory: directory.replace(path.value, ''),
-				images: data.value[directory].map(encodeURI).sort(),
-			})),
+	const isLibrary = ref(false)
+	const isAlbum = computed(
+		() => !!(currentCollection.value && !isLibrary.value),
 	)
 
-	const shortDirectories = computed(() =>
-		directories.value.map((d) => d.directory),
-	)
+	libApi.getLibraries().then((libs) => (libraries.value = libs))
+	albumApi.getAlbums().then((as) => (albums.value = as))
 
-	function setPath(newPath: string) {
-		console.log(newPath)
-		path.value = newPath
-		getImagesInDir(newPath)
-			.then((images) => {
-				data.value = images
-			})
-			.catch((e) => console.log(e))
+	function setCurrentLibrary(id: ID) {
+		currentCollection.value = id
+		isLibrary.value = true
+	}
+
+	function setCurrentAlbum(id: ID) {
+		currentCollection.value = id
+		isLibrary.value = false
+	}
+
+	async function createLibrary(rootPath: string, name?: string) {
+		await libApi.createLibrary({ name, rootPath })
+		libraries.value = await libApi.getLibraries()
+	}
+
+	async function createAlbum(name: string, color?: string) {
+		await albumApi.createAlbum({ name, color })
+		albums.value = await albumApi.getAlbums()
 	}
 
 	return {
-		path,
-		directories,
-		shortDirectories,
-		setPath,
+		libraries,
+		albums,
+		currentCollection,
+		isLibrary,
+		isAlbum,
+		setCurrentAlbum,
+		setCurrentLibrary,
+		createLibrary,
+		createAlbum,
 	}
 }

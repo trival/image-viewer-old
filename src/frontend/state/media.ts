@@ -1,38 +1,38 @@
 import { IMediaApi } from '@/backend/modules/media/api'
-import { ref, computed } from 'vue'
+import { IMediaEntity } from '@/backend/modules/media/entities/media'
+import { ref, computed, watchEffect } from 'vue'
+import { ICollectionState } from './collections'
 
-export default function create(mediaApi: IMediaApi) {
-	const path = ref('')
+export default function create(
+	mediaApi: IMediaApi,
+	collectionState: ICollectionState,
+) {
+	const media = ref<IMediaEntity[]>([])
 
-	const data = ref<{ [id: string]: string[] }>({})
+	watchEffect(async () => {
+		const currentCollectionId = collectionState.currentCollection.value
+		if (currentCollectionId) {
+			if (collectionState.isLibrary.value) {
+				media.value = await mediaApi.getMediaOfLibrary(currentCollectionId)
+			}
+			if (collectionState.isAlbum.value) {
+				media.value = await mediaApi.getMediaOfAlbum(currentCollectionId)
+			}
+		} else {
+			media.value = []
+		}
+	})
 
-	const directories = computed(() =>
-		Object.keys(data.value)
-			.sort()
-			.map((directory) => ({
-				directory: directory.replace(path.value, ''),
-				images: data.value[directory].map(encodeURI).sort(),
-			})),
-	)
-
-	const shortDirectories = computed(() =>
-		directories.value.map((d) => d.directory),
-	)
-
-	function setPath(newPath: string) {
-		console.log(newPath)
-		path.value = newPath
-		getImagesInDir(newPath)
-			.then((images) => {
-				data.value = images
-			})
-			.catch((e) => console.log(e))
-	}
+	const directories = computed(() => {
+		const dirs: { [dir: string]: IMediaEntity[] } = {}
+		media.value.forEach((m) => {
+			;(dirs[m.directory] ??= []).push(m)
+		})
+		return dirs
+	})
 
 	return {
-		path,
+		media,
 		directories,
-		shortDirectories,
-		setPath,
 	}
 }
