@@ -1,5 +1,4 @@
 import { EMediaType, IMediaEntity } from '../entities/media'
-import { IMediaMeta } from '../entities/mediaMeta'
 import * as path from 'path'
 import * as fs from 'fs'
 import * as crypto from 'crypto'
@@ -7,24 +6,30 @@ import isImage from 'is-image'
 import { IFileMeta } from '../entities/fileMeta'
 import sharp from 'sharp'
 import { ExifDateTime, exiftool } from 'exiftool-vendored'
+import { getImagePathsInDir } from '@/lib/files'
 
 export interface IFileService {
 	getMediaDataForRootPath(rootPath: string): Promise<IMediaEntity[]>
 	getMediaDataForPath(
 		rootPath: string,
-		relativePath: string,
+		fullPath: string,
 		opts?: Partial<{ withMediaMeta: boolean }>,
 	): Promise<IMediaEntity>
-	getMediaMetaForPath(path: string): Promise<IMediaMeta>
 }
 
 export function createFileService(): IFileService {
 	const service = {} as IFileService
 
-	service.getMediaDataForPath = async (rootPath, relativePath, opts) => {
+	service.getMediaDataForRootPath = async (rootPath) => {
+		const paths = await getImagePathsInDir(rootPath)
+		return Promise.all(
+			[...paths].map((path) => service.getMediaDataForPath(rootPath, path)),
+		)
+	}
+
+	service.getMediaDataForPath = async (rootPath, fullPath, opts) => {
 		rootPath = rootPath.trim()
-		relativePath = relativePath.trim()
-		const fullPath = path.resolve(rootPath, relativePath)
+		fullPath = fullPath.trim()
 
 		const stats = await fs.promises.stat(fullPath)
 
@@ -40,14 +45,14 @@ export function createFileService(): IFileService {
 		}
 
 		const fileMeta: IFileMeta = {
-			filename: path.basename(relativePath),
+			filename: path.basename(fullPath),
 			size: stats.size,
 			createdAt: stats.birthtimeMs,
 			updatedAt: stats.mtimeMs,
 		}
 
 		let m = {
-			id: getPathHash(fullPath, fileMeta.createdAt, fileMeta.size),
+			id: getPathHash(fullPath, fileMeta.size),
 			type,
 			fullPath,
 			directory: getDirectory(fullPath, rootPath),
@@ -91,9 +96,9 @@ function getDirectory(fullPath: string, rootPath: string) {
 	return path.dirname(fullPath).replace(rootPath, '').replace(/^\//, '')
 }
 
-function getPathHash(fullPath: string, createdAt: number, size = 0) {
+function getPathHash(fullPath: string, size = 0) {
 	return crypto
 		.createHash('sha1')
-		.update(size + fullPath + createdAt)
+		.update(size + fullPath)
 		.digest('hex')
 }
