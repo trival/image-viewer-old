@@ -32,6 +32,9 @@ describe('backend/modules/libraries/repository', () => {
 		libraries = await repo.getLibraries()
 		expect(libraries).toEqual([library])
 
+		const lib = await repo.getLibraryById(library.id)
+		expect(lib).toEqual(library)
+
 		await repo.saveLibrary({ ...library, ...newName })
 
 		libraries = await repo.getLibraries()

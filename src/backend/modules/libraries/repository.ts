@@ -7,6 +7,7 @@ import { libraryDbToEntity, libraryEntityToDb } from './repositoryMappers'
 export interface ILibraryRepository {
 	// Queries
 	getLibraries(): Promise<ILibraryEntity[]>
+	getLibraryById(id: ID): Promise<ILibraryEntity>
 
 	// Commands
 	saveLibrary(entity: ILibraryEntity): Promise<ILibraryEntity>
@@ -20,6 +21,12 @@ export function createLibraryDBRepository(
 	const repo = {} as ILibraryRepository
 
 	repo.getLibraries = () => db.find().then((res) => res.map(libraryDbToEntity))
+
+	repo.getLibraryById = (id) =>
+		db.findOne(id).then((res) => {
+			if (!res) throw Error('library not found for id: ' + id)
+			return libraryDbToEntity(res)
+		})
 
 	repo.saveLibrary = (library) =>
 		db.save(libraryEntityToDb(library)).then(libraryDbToEntity)
