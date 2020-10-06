@@ -5,8 +5,11 @@ import { ILibraryEntity } from '@/backend/modules/libraries/entities/library'
 import { ID } from '@/backend/types'
 import { ref, computed } from 'vue'
 
-export type ICollectionState = ReturnType<typeof create>
-export default function create(libApi: ILibraryApi, albumApi: IAlbumApi) {
+export type ICollectionState = ReturnType<typeof createCollectionsState>
+export function createCollectionsState(
+	libApi: ILibraryApi,
+	albumApi: IAlbumApi,
+) {
 	const libraries = ref<ILibraryEntity[]>([])
 	const albums = ref<IAlbumEntity[]>([])
 

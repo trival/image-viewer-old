@@ -18,30 +18,32 @@
 				</li>
 			</ul>
 		</nav>
-		<main>
-			<ImageList />
-		</main>
+		<main><ImageList :ctx="ctx" /></main>
 	</div>
 </template>
 
 <script lang="ts">
-import { modules } from '../lib'
 import { defineComponent, ref } from 'vue'
 import ImageList from './components/ImageList.vue'
+import { Context } from './context'
 
 export default defineComponent({
-	name: 'MyLayout',
+	name: 'RootApp',
 
 	components: {
 		ImageList,
 	},
 
-	setup() {
+	setup(props: { ctx: Context }) {
+		console.log(props)
+		// eslint-disable-next-line vue/no-setup-props-destructure
+		const { ctx } = props
 		const leftDrawerOpen = ref(false)
 
 		return {
 			leftDrawerOpen,
-			directories: modules.images.shortDirectories,
+			directories: ctx.state.media.directories,
+			ctx,
 		}
 	},
 })

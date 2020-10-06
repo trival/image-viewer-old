@@ -3,7 +3,7 @@ import { IMediaEntity } from '@/backend/modules/media/entities/media'
 import { ref, computed, watchEffect } from 'vue'
 import { ICollectionState } from './collections'
 
-export default function create(
+export function createMediaState(
 	mediaApi: IMediaApi,
 	collectionState: ICollectionState,
 ) {

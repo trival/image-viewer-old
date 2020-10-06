@@ -1,4 +1,7 @@
 import { createApp } from 'vue'
 import App from './frontend/App.vue'
+import { createContext } from './frontend/context'
 
-createApp(App).mount('#app')
+createContext().then((ctx) => {
+	createApp(App, { ctx }).mount('#app')
+})

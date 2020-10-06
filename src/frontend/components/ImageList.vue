@@ -6,17 +6,13 @@
 		</label>
 		<button @click="submitPath">Set path</button>
 		<section
-			v-for="directory in directories"
-			:key="directory.directory"
+			v-for="(medias, directory) in directories"
+			:key="directory"
 			class="directory-section"
 		>
-			<h3 :id="directory.directory">{{ directory.directory }}</h3>
-			<div
-				v-for="image in directory.images"
-				:key="directory.directory + image"
-				class="image-container"
-			>
-				<img :data-src="image" class="lzy_img" />
+			<h3 :id="directory">{{ directory }}</h3>
+			<div v-for="image in medias" :key="image.id" class="image-container">
+				<img :data-src="image.fullPath" class="lzy_img" />
 			</div>
 		</section>
 	</div>
@@ -48,15 +44,16 @@
 </style>
 
 <script lang="ts">
-import { modules } from '../../lib/index'
 import { defineComponent, ref, watchEffect } from 'vue'
+import { Context } from '../context'
 
 export default defineComponent({
-	setup: () => {
+	setup: (props: { ctx: Context }) => {
+		console.log('ImageList', props)
 		const path = ref('')
 
 		function submitPath() {
-			modules.images.setPath(path.value)
+			// modules.images.setPath(path.value)
 		}
 
 		const onPathChange = (e: any) => {
@@ -64,7 +61,7 @@ export default defineComponent({
 		}
 
 		watchEffect(() => {
-			console.log('watching: ', modules.images.directories.value)
+			console.log('watching: ', props.ctx.state.media.directories.value)
 			setTimeout(() => {
 				const imageObserver = new IntersectionObserver(
 					(entries, imgObserver) => {
@@ -91,7 +88,7 @@ export default defineComponent({
 			path,
 			submitPath,
 			onPathChange,
-			directories: modules.images.directories,
+			directories: props.ctx.state.media.directories,
 		}
 	},
 })
