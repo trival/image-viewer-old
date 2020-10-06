@@ -25,7 +25,7 @@ export function diffMedia(oldMedia: IMediaEntity[], newMedia: IMediaEntity[]) {
 		} else if (
 			!isEqual({ ...oldMs[id], mediaMeta: null }, { ...newM, mediaMeta: null })
 		) {
-			res.update.push(newM)
+			res.update.push({ ...oldMs[id], ...newM })
 		}
 	})
 

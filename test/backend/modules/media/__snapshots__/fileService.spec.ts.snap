@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`backend/modules/media/fileService getMediaDataForRootPath gets image data in path 1`] = `
+Object {
+  "directory": "dir1",
+  "fileMeta": Object {
+    "createdAt": Any<Number>,
+    "filename": "test_image_square.jpg",
+    "size": 27025,
+    "updatedAt": Any<Number>,
+  },
+  "fullPath": Any<String>,
+  "id": Any<String>,
+  "type": "IMAGE",
+}
+`;
+
+exports[`backend/modules/media/fileService getMediaDataForRootPath gets image data in path 2`] = `
+Object {
+  "directory": "dir1",
+  "fileMeta": Object {
+    "createdAt": Any<Number>,
+    "filename": "test_image_square.png",
+    "size": 56816,
+    "updatedAt": Any<Number>,
+  },
+  "fullPath": Any<String>,
+  "id": Any<String>,
+  "type": "IMAGE",
+}
+`;
+
+exports[`backend/modules/media/fileService getMediaDataForRootPath gets image data in path 3`] = `
+Object {
+  "directory": "dir1",
+  "fileMeta": Object {
+    "createdAt": Any<Number>,
+    "filename": "test_landscape.jpg",
+    "size": 5332701,
+    "updatedAt": Any<Number>,
+  },
+  "fullPath": Any<String>,
+  "id": Any<String>,
+  "type": "IMAGE",
+}
+`;
+
+exports[`backend/modules/media/fileService getMediaDataForRootPath gets image data in path 4`] = `
+Object {
+  "directory": "dir2",
+  "fileMeta": Object {
+    "createdAt": Any<Number>,
+    "filename": "test_image_horizontal.png",
+    "size": 164381,
+    "updatedAt": Any<Number>,
+  },
+  "fullPath": Any<String>,
+  "id": Any<String>,
+  "type": "IMAGE",
+}
+`;
+
+exports[`backend/modules/media/fileService getMediaDataForRootPath gets image data in path 5`] = `
+Object {
+  "directory": "dir2",
+  "fileMeta": Object {
+    "createdAt": Any<Number>,
+    "filename": "test_image_vertical.png",
+    "size": 152470,
+    "updatedAt": Any<Number>,
+  },
+  "fullPath": Any<String>,
+  "id": Any<String>,
+  "type": "IMAGE",
+}
+`;

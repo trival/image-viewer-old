@@ -16,59 +16,18 @@ describe('backend/modules/media/fileService', () => {
 		it('gets image data in path', async () => {
 			const data = await service.getMediaDataForRootPath(localTestRootPath)
 
-			expect(
-				data
-					.map((d) => ({ ...d, fileMeta: { filename: d.fileMeta?.filename } }))
-					.sort((a, b) => a.fullPath.localeCompare(b.fullPath)),
-			).toMatchInlineSnapshot(`
-			Array [
-			  Object {
-			    "directory": "dir1",
-			    "fileMeta": Object {
-			      "filename": "test_image_square.jpg",
-			    },
-			    "fullPath": "/home/trival/projects/image-viewer/test/localTestFs/testDir/dir1/test_image_square.jpg",
-			    "id": "a263afeb65771243156c614274785a219dc1788e",
-			    "type": "IMAGE",
-			  },
-			  Object {
-			    "directory": "dir1",
-			    "fileMeta": Object {
-			      "filename": "test_image_square.png",
-			    },
-			    "fullPath": "/home/trival/projects/image-viewer/test/localTestFs/testDir/dir1/test_image_square.png",
-			    "id": "0c70c2b1c604e621efac09c8a942ef037e314437",
-			    "type": "IMAGE",
-			  },
-			  Object {
-			    "directory": "dir1",
-			    "fileMeta": Object {
-			      "filename": "test_landscape.jpg",
-			    },
-			    "fullPath": "/home/trival/projects/image-viewer/test/localTestFs/testDir/dir1/test_landscape.jpg",
-			    "id": "3208996b87ce183b4ffd24cf504875adf29fd7d2",
-			    "type": "IMAGE",
-			  },
-			  Object {
-			    "directory": "dir2",
-			    "fileMeta": Object {
-			      "filename": "test_image_horizontal.png",
-			    },
-			    "fullPath": "/home/trival/projects/image-viewer/test/localTestFs/testDir/dir2/test_image_horizontal.png",
-			    "id": "9d62cc73b56290f30f80030cfaf6f875db9cfe2e",
-			    "type": "IMAGE",
-			  },
-			  Object {
-			    "directory": "dir2",
-			    "fileMeta": Object {
-			      "filename": "test_image_vertical.png",
-			    },
-			    "fullPath": "/home/trival/projects/image-viewer/test/localTestFs/testDir/dir2/test_image_vertical.png",
-			    "id": "4e2571ea1e232574297f7786da1536103b4a8b8a",
-			    "type": "IMAGE",
-			  },
-			]
-		`)
+			data
+				.sort((a, b) => a.fullPath.localeCompare(b.fullPath))
+				.forEach((e) => {
+					expect(e).toMatchSnapshot({
+						id: expect.any(String),
+						fullPath: expect.any(String),
+						fileMeta: {
+							createdAt: expect.any(Number),
+							updatedAt: expect.any(Number),
+						},
+					})
+				})
 		})
 	})
 
@@ -91,6 +50,7 @@ describe('backend/modules/media/fileService', () => {
 			expect(m).toMatchInlineSnapshot(
 				{
 					fullPath: expect.any(String),
+					id: expect.any(String),
 					fileMeta: {
 						createdAt: expect.any(Number),
 						updatedAt: expect.any(Number),
@@ -106,7 +66,7 @@ describe('backend/modules/media/fileService', () => {
 			    "updatedAt": Any<Number>,
 			  },
 			  "fullPath": Any<String>,
-			  "id": "0c70c2b1c604e621efac09c8a942ef037e314437",
+			  "id": Any<String>,
 			  "type": "IMAGE",
 			}
 		`,

@@ -48,7 +48,7 @@ export function createMediaApi(
 		const newMedia = await fileService.getMediaDataForRootPath(lib.rootPath)
 		const diff = diffMedia(oldMedia, newMedia)
 		await repo.deleteMedia(diff.delete)
-		await repo.saveMedia(diff.update)
+		await repo.saveMedia(diff.update.map((e) => ({ ...e, libraryId: libId }))) // TODO: refactor into Media Model
 		return repo.getMediaOfLibrary(libId)
 	}
 
