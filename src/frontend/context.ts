@@ -10,6 +10,7 @@ import { createLibraryDBRepository } from '@/backend/modules/libraries/repositor
 import { createAlbumDBRepository } from '@/backend/modules/albums/repository'
 import { createFileService } from '@/backend/modules/media/services/fileService'
 import { Await } from '@/lib/types'
+import { InjectionKey } from 'vue'
 
 export type Context = Await<ReturnType<typeof createContext>>
 
@@ -40,3 +41,5 @@ export async function createContext() {
 		},
 	}
 }
+
+export const ctxKey: InjectionKey<Context> = Symbol()
