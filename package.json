@@ -31,6 +31,7 @@
     "vue": "^3.0.2"
   },
   "devDependencies": {
+    "@jest-runner/electron": "^3.0.0",
     "@types/jest": "^26.0.15",
     "@types/lodash": "^4.14.165",
     "@types/sharp": "^0.26.1",

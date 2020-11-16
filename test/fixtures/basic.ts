@@ -11,7 +11,8 @@ export const localTestRootPath = path.resolve(
 	'../localTestFs/testDir',
 )
 
-export const testConnection = () =>
-	getDBConnection(path.resolve(localConfigDir, 'database.sqlite'), {
+export const testConnection = () => {
+	return getDBConnection(path.resolve(localConfigDir, 'database.sqlite'), {
 		isTest: true,
 	})
+}
