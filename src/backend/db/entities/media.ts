@@ -17,7 +17,7 @@ export class Media {
 	id!: ID
 
 	@Column({ type: 'text' })
-	libraryId!: string
+	libraryId!: ID
 
 	@ManyToOne(() => Library, { cascade: false, onDelete: 'CASCADE' })
 	@JoinColumn()

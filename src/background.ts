@@ -1,8 +1,10 @@
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import { wrapServiceMain } from './lib/electron'
+import { createFileService } from './backend/modules/media/services/fileService'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -106,3 +108,8 @@ function registerLocalResourceProtocol() {
 		}
 	})
 }
+
+// Main process
+ipcMain.handle('appDataPath', () => app.getPath('userData'))
+
+wrapServiceMain(createFileService(), 'fileService')

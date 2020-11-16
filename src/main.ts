@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
 import App from './frontend/App.vue'
-import { createContext } from './frontend/context'
+import { createContext, ctxKey } from './frontend/context'
 
 createContext().then((ctx) => {
-	createApp(App, { ctx }).mount('#app')
+	console.log('starting App with ctx: ', ctx)
+	createApp(App).provide(ctxKey, ctx).mount('#app')
 })

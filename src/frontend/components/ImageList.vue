@@ -44,12 +44,14 @@
 </style>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue'
-import { Context } from '../context'
+import { defineComponent, inject, ref, watchEffect } from 'vue'
+import { Context, ctxKey } from '../context'
 
 export default defineComponent({
-	setup: (props: { ctx: Context }) => {
-		console.log('ImageList', props)
+	setup: () => {
+		const ctx = inject(ctxKey)
+		console.log('ImageList ctx', ctx)
+
 		const path = ref('')
 
 		function submitPath() {
@@ -61,7 +63,7 @@ export default defineComponent({
 		}
 
 		watchEffect(() => {
-			console.log('watching: ', props.ctx.state.media.directories.value)
+			console.log('watching: ', ctx && ctx.state.media.directories.value)
 			setTimeout(() => {
 				const imageObserver = new IntersectionObserver(
 					(entries, imgObserver) => {
@@ -88,7 +90,7 @@ export default defineComponent({
 			path,
 			submitPath,
 			onPathChange,
-			directories: props.ctx.state.media.directories,
+			directories: ctx ? ctx.state.media.directories : [],
 		}
 	},
 })

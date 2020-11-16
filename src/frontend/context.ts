@@ -8,13 +8,23 @@ import { createMediaState } from './state/media'
 import * as config from '../config'
 import { createLibraryDBRepository } from '@/backend/modules/libraries/repository'
 import { createAlbumDBRepository } from '@/backend/modules/albums/repository'
-import { createFileService } from '@/backend/modules/media/services/fileService'
+import {
+	createFileService,
+	IFileService,
+} from '@/backend/modules/media/services/fileService'
 import { Await } from '@/lib/types'
+import { wrapServiceRender } from '@/lib/electron'
+import { InjectionKey } from 'vue'
 
 export type Context = Await<ReturnType<typeof createContext>>
 
+export const ctxKey: InjectionKey<Context> = Symbol()
+
 export async function createContext() {
-	const connection = await getDBConnection(config.dbUrl)
+	const url = await config.getDbUrl()
+	console.log('creating context', url)
+	const connection = await getDBConnection(url, { isTest: true })
+	console.log('got connection!', connection)
 
 	const mediaRepository = createMediaDBRepository(connection)
 	const libraryRepository = createLibraryDBRepository(connection)

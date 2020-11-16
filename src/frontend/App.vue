@@ -18,14 +18,14 @@
 				</li>
 			</ul>
 		</nav>
-		<main><ImageList :ctx="ctx" /></main>
+		<main><ImageList /></main>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, inject, ref } from 'vue'
 import ImageList from './components/ImageList.vue'
-import { Context } from './context'
+import { Context, ctxKey } from './context'
 
 export default defineComponent({
 	name: 'RootApp',
@@ -34,16 +34,14 @@ export default defineComponent({
 		ImageList,
 	},
 
-	setup(props: { ctx: Context }) {
-		console.log(props)
-		// eslint-disable-next-line vue/no-setup-props-destructure
-		const { ctx } = props
+	setup() {
+		const ctx = inject(ctxKey)
+		console.log('App ctx', ctx)
 		const leftDrawerOpen = ref(false)
 
 		return {
 			leftDrawerOpen,
-			directories: ctx.state.media.directories,
-			ctx,
+			directories: ctx ? ctx.state.media.directories : [],
 		}
 	},
 })
