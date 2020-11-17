@@ -14,10 +14,10 @@ import { Media } from './media'
 @Index(['album', 'media'], { unique: true })
 export class AlbumMedia {
 	@Column({ type: 'text', primary: true })
-	albumId!: string
+	albumId!: ID
 
 	@Column({ type: 'text', primary: true })
-	mediaId!: string
+	mediaId!: ID
 
 	@ManyToOne(() => Album, { onDelete: 'CASCADE' })
 	@JoinColumn()

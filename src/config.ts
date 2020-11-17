@@ -1,7 +1,14 @@
-import { app } from 'electron'
+import { ipcRenderer } from 'electron'
 import * as path from 'path'
 
 // see https://www.electronjs.org/docs/api/app#appgetpathname
-export const appDataPath = app.getPath('userData')
+let appDataPath: string
+export const getAppDataPath = async () => {
+	if (!appDataPath) {
+		appDataPath = await ipcRenderer.invoke('appDataPath')
+	}
+	return appDataPath
+}
 
-export const dbUrl = path.resolve(appDataPath, 'image-db.sqlite')
+export const getDbUrl = async () =>
+	path.resolve(await getAppDataPath(), 'image-db.sqlite')

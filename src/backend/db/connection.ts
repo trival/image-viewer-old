@@ -10,11 +10,11 @@ export function getDBConnection(
 ) {
 	const { isTest } = opts
 	return createConnection({
-		type: 'sqlite',
+		type: 'better-sqlite3',
 		database: dbLocation,
 		synchronize: isTest,
 		dropSchema: isTest,
-		migrationsRun: !isTest,
+		migrationsRun: false,
 		entities: [Library, Album, Media, AlbumMedia],
 	})
 }
