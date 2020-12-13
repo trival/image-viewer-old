@@ -1,7 +1,6 @@
 import { ID } from '@/backend/types'
-import { ILibraryEntity } from './entities/library'
+import { createLibrary, ILibraryEntity } from './entities/library'
 import { ILibraryRepository } from './repository'
-import * as uuid from 'uuid'
 
 export interface ILibraryApi {
 	// Queries
@@ -25,10 +24,7 @@ export function createLibraryApi(repo: ILibraryRepository) {
 	api.getLibraries = repo.getLibraries
 
 	api.createLibrary = (props) =>
-		repo.saveLibrary({
-			id: uuid.v4(),
-			...props,
-		} as ILibraryEntity)
+		repo.saveLibrary(createLibrary(props.rootPath, props.name))
 
 	api.updateLibrary = (id, props) =>
 		repo.saveLibrary({ id, ...props } as ILibraryEntity)

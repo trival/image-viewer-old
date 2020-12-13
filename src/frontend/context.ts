@@ -15,6 +15,7 @@ import {
 import { Await } from '@/lib/types'
 import { wrapServiceRender } from '@/lib/electron'
 import { InjectionKey } from 'vue'
+import { createAppState } from './state/app'
 
 export type Context = Await<ReturnType<typeof createContext>>
 
@@ -43,10 +44,13 @@ export async function createContext() {
 	const collectionState = createCollectionsState(libApi, albumApi)
 	const mediaState = createMediaState(mediaApi, collectionState)
 
+	const appState = createAppState()
+
 	return {
 		state: {
 			collections: collectionState,
 			media: mediaState,
+			app: appState,
 		},
 	}
 }

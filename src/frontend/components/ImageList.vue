@@ -1,10 +1,5 @@
 <template>
 	<div>
-		<label>
-			Path
-			<input :value="path" @change="onPathChange" />
-		</label>
-		<button @click="submitPath">Set path</button>
 		<section
 			v-for="(medias, directory) in directories"
 			:key="directory"
@@ -54,14 +49,6 @@ export default defineComponent({
 
 		const path = ref('')
 
-		function submitPath() {
-			// modules.images.setPath(path.value)
-		}
-
-		const onPathChange = (e: any) => {
-			path.value = e.target.value
-		}
-
 		watchEffect(() => {
 			console.log('watching: ', ctx && ctx.state.media.directories.value)
 			setTimeout(() => {
@@ -88,8 +75,6 @@ export default defineComponent({
 
 		return {
 			path,
-			submitPath,
-			onPathChange,
 			directories: ctx ? ctx.state.media.directories : [],
 		}
 	},
