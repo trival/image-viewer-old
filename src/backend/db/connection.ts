@@ -10,7 +10,7 @@ export function getDBConnection(
 ) {
 	const { isTest } = opts
 	return createConnection({
-		type: 'better-sqlite3',
+		type: 'sqlite', // 'sqlite' works on macosx
 		database: dbLocation,
 		synchronize: isTest,
 		dropSchema: isTest,
