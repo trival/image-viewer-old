@@ -6,6 +6,7 @@ import { ID } from '@/backend/types'
 import { ref, computed } from 'vue'
 
 export type ICollectionState = ReturnType<typeof createCollectionsState>
+
 export function createCollectionsState(
 	libApi: ILibraryApi,
 	albumApi: IAlbumApi,

@@ -24,7 +24,7 @@ export const ctxKey: InjectionKey<Context> = Symbol()
 export async function createContext() {
 	const url = await config.getDbUrl()
 	console.log('creating context', url)
-	const connection = await getDBConnection(url, { isTest: true })
+	const connection = await getDBConnection(url)
 	console.log('got connection!', connection)
 
 	const mediaRepository = createMediaDBRepository(connection)

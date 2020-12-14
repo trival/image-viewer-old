@@ -8,6 +8,7 @@
 					<br />
 					<small>{{ library.rootPath }}</small>
 				</a>
+				<button @click="refresh(library.id)">refresh</button>
 			</li>
 		</ul>
 		<button @click="addLibrary()">Add a Library</button>
@@ -35,10 +36,15 @@ export default defineComponent({
 			ctx?.state.app.setDisplayState(AppDisplayState.LibraryForm)
 		}
 
+		const refresh = (id: ID) => {
+			ctx?.state.collections // TODO: create refresh api
+		}
+
 		return {
 			libraries,
 			onLibrarySelect,
 			addLibrary,
+			refresh,
 		}
 	},
 })

@@ -20,7 +20,14 @@ export function createLibraryDBRepository(
 	const db = conn.getRepository(Library)
 	const repo = {} as ILibraryRepository
 
-	repo.getLibraries = () => db.find().then((res) => res.map(libraryDbToEntity))
+	repo.getLibraries = () =>
+		db
+			.find()
+			.then((res) => res.map(libraryDbToEntity))
+			.then((res) => {
+				console.log('fetching libraries', res)
+				return res
+			})
 
 	repo.getLibraryById = (id) =>
 		db.findOne(id).then((res) => {
