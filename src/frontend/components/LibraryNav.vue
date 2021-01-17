@@ -2,13 +2,23 @@
 	<section>
 		<h2>Libraries</h2>
 		<ul>
-			<li v-for="library in libraries" :key="library.id">
-				<a href="#" @click="onLibrarySelect(library.id)">
+			<li v-for="library in libraries" :key="library.id" class="flex">
+				<a
+					href="#"
+					@click="onLibrarySelect(library.id)"
+					class="p-4 w-80 left-ellipsis"
+					:title="library.rootPath"
+				>
 					{{ library.name }}
 					<br />
-					<small>{{ library.rootPath }}</small>
+					<small class="block truncate">{{ library.rootPath }}</small>
 				</a>
-				<button @click="refresh(library.id)">refresh</button>
+				<button
+					@click="refresh(library.id)"
+					class="p-2 my-4 bg-white font-bold rounded-lg"
+				>
+					refresh
+				</button>
 			</li>
 		</ul>
 		<button @click="addLibrary()">Add a Library</button>
@@ -50,4 +60,8 @@ export default defineComponent({
 })
 </script>
 
-<style></style>
+<style scoped>
+.left-ellipsis {
+	direction: rtl;
+}
+</style>

@@ -1,30 +1,38 @@
 <template>
-	<div>
-		<header>
-			<button @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
+	<div class="text-gray-900 antialiased text-center">
+		<header class="flex bg-gray-100">
+			<button
+				@click="leftDrawerOpen = !leftDrawerOpen"
+				aria-label="Menu"
+				class="w-7 rounded-full m-2 bg-red-500 text-white text-xl font-bold"
+			>
 				=
 			</button>
 
-			<h1>Image Viewer</h1>
+			<h1 class="p-2 text-lg font-bold">Image Viewer</h1>
 		</header>
 
-		<nav v-if="leftDrawerOpen">
-			<section>
-				<h2>Directories</h2>
-				<ul>
-					<li v-for="directory in directories" :key="directory">
-						<a :href="'#' + directory">
-							{{ directory }}
-						</a>
-					</li>
-				</ul>
-			</section>
-			<LibraryNav />
-		</nav>
-		<main v-if="displayState === AppDisplayState.ImageList"><ImageList /></main>
-		<main v-if="displayState === AppDisplayState.LibraryForm">
-			<LibraryForm />
-		</main>
+		<div class="flex">
+			<nav v-if="leftDrawerOpen" class="bg-blue-100 p-2 text-left w-96">
+				<section>
+					<h2>Directories</h2>
+					<ul>
+						<li v-for="directory in directories" :key="directory">
+							<a :href="'#' + directory">
+								{{ directory }}
+							</a>
+						</li>
+					</ul>
+				</section>
+				<LibraryNav />
+			</nav>
+			<main v-if="displayState === AppDisplayState.ImageList">
+				<ImageList />
+			</main>
+			<main v-if="displayState === AppDisplayState.LibraryForm">
+				<LibraryForm />
+			</main>
+		</div>
 	</div>
 </template>
 
@@ -63,14 +71,3 @@ export default defineComponent({
 	},
 })
 </script>
-
-<style>
-#app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
-	margin-top: 60px;
-}
-</style>
