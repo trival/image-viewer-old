@@ -15,7 +15,7 @@
 		<div class="flex">
 			<nav v-if="leftDrawerOpen" class="bg-blue-100 p-2 text-left w-96">
 				<section>
-					<h2>Directories</h2>
+					<h2 class="font-bold text-lg">Directories</h2>
 					<ul>
 						<li v-for="directory in directories" :key="directory">
 							<a :href="'#' + directory">
