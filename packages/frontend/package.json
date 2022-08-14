@@ -1,0 +1,41 @@
+{
+  "name": "image-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Thomas Gorny",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trival/image-viewer.git"
+  },
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test:types": "tsc --noEmit",
+    "test:watch": "yarn test --watch",
+    "test": "jest --runInBand"
+  },
+  "main": "background.js",
+  "dependencies": {
+    "@tailwindcss/postcss7-compat": "^2.0.2",
+    "autoprefixer": "^9.8.6",
+    "lodash": "^4.17.20",
+    "postcss": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "vue": "^3.0.5"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.167",
+    "@types/uuid": "^8.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
+    "@typescript-eslint/parser": "^4.13.0",
+    "@vue/cli": "^4.5.10",
+    "@vue/cli-plugin-eslint": "~4.5.10",
+    "@vue/cli-plugin-typescript": "~4.5.10",
+    "@vue/cli-service": "~4.5.10",
+    "@vue/compiler-sfc": "^3.0.5",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0"
+  }
+}
