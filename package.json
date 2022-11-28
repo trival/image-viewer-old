@@ -9,7 +9,9 @@
     "url": "git+https://github.com/trival/image-viewer.git"
   },
   "scripts": {},
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.13.0",

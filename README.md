@@ -1,4 +1,7 @@
-# image-viewer
+# image-viewer (first attempt)
+
+this project is deprecated and superceded by trival/image-viewer, which
+implements the server backends with Scala 3 and ZIO.
 
 ## Project setup
 
